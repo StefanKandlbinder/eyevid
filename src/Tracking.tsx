@@ -30,7 +30,13 @@ export const Tracking: React.FC<TrackingProps> = ({
         cancelAnimationFrame(animationFrameId.current);
       }
       if (faceLandmarkerRef.current) {
+        document.querySelectorAll("script").forEach((script) => {
+          if (script.src.includes("vision_wasm_internal.js")) {
+            script.remove();
+          }
+        });
         faceLandmarkerRef.current.close();
+        faceLandmarkerRef.current = null;
       }
     };
   }, []);

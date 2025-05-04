@@ -26,16 +26,7 @@ const App = () => {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "640px",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        gap: "10px",
-      }}
-    >
+    <div className="max-w-[640px] relative flex flex-col mx-auto gap-2 transition-all duration-300 ease-in-out">
       <video
         ref={videoRef}
         autoPlay
@@ -43,16 +34,6 @@ const App = () => {
         muted
         style={{ backgroundColor: "#000" }}
       />
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      ></div>
       {!isStreaming ? (
         <div className="flex gap-2 justify-between">
           <Button className="grow" onClick={handleStart}>
