@@ -22,7 +22,7 @@ export const VidEye: React.FC<VidEyeProps> = ({ videoSrc }) => {
 
   const [error, setError] = useState<string | null>(null);
   const [webcamStarted, setWebcamStarted] = useState(false);
-  const [isTracking, setIsTracking] = useState(false);
+  // const [isTracking, setIsTracking] = useState(false);
 
   // Debounce pause timer
   const pauseTimeoutRef = useRef<number | null>(null);
@@ -79,7 +79,7 @@ export const VidEye: React.FC<VidEyeProps> = ({ videoSrc }) => {
 
         await webcamVideoRef.current.play();
 
-        setIsTracking(true);
+        // setIsTracking(true);
         detectFrame();
       } catch (e) {
         console.error("Webcam error:", e);
@@ -125,9 +125,9 @@ export const VidEye: React.FC<VidEyeProps> = ({ videoSrc }) => {
       const leftIris = landmarks.slice(468, 472); // 4 points
       const rightIris = landmarks.slice(473, 477); // 4 points
 
-      const nose = landmarks[4]; // 4 points
-      const left = landmarks[234]; // 1 point
-      const right = landmarks[454]; // 1 point
+      // const nose = landmarks[4]; // 4 points
+      // const left = landmarks[234]; // 1 point
+      // const right = landmarks[454]; // 1 point
 
       // leftDistance = Math.abs(left.x - nose.x); // 0.10
       // rightDistance = Math.abs(right.x - nose.x); // 0.12
@@ -250,7 +250,7 @@ export const VidEye: React.FC<VidEyeProps> = ({ videoSrc }) => {
       if (faceLandmarkerRef.current) {
         faceLandmarkerRef.current.close();
       }
-      setIsTracking(false);
+      // setIsTracking(false);
     };
   }, [webcamStarted]);
 

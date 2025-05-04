@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FilesetResolver, FaceLandmarker } from "@mediapipe/tasks-vision";
 import { Button } from "./components/ui/button";
 
@@ -23,10 +23,10 @@ export const WebcamTracking: React.FC<WebcamTrackingProps> = () => {
   const [webcamStarted, setWebcamStarted] = useState(false);
   const [webcamSettings, setWebcamSettings] =
     useState<MediaTrackSettings | null>(null);
-  const [landmarks, setLandmarks] = useState<Landmark[][]>([]);
+  // const [landmarks, setLandmarks] = useState<Landmark[][]>([]);
 
   // Debounce pause timer
-  const pauseTimeoutRef = useRef<number | null>(null);
+  // const pauseTimeoutRef = useRef<number | null>(null);
 
   function drawEyeHighlights(
     ctx: CanvasRenderingContext2D,
@@ -47,31 +47,31 @@ export const WebcamTracking: React.FC<WebcamTrackingProps> = () => {
     });
   }
 
-  function updateVideoPlayback(
-    isLooking: boolean,
-    mainVideoRef: React.RefObject<HTMLVideoElement>
-  ) {
-    if (!mainVideoRef.current) return;
+  // function updateVideoPlayback(
+  //   isLooking: boolean,
+  //   mainVideoRef: React.RefObject<HTMLVideoElement>
+  // ) {
+  //   if (!mainVideoRef.current) return;
 
-    if (isLooking) {
-      if (pauseTimeoutRef.current) {
-        clearTimeout(pauseTimeoutRef.current);
-        pauseTimeoutRef.current = null;
-      }
-      if (mainVideoRef.current.paused) {
-        mainVideoRef.current.play().catch(() => {});
-      }
-    } else {
-      if (!pauseTimeoutRef.current) {
-        pauseTimeoutRef.current = window.setTimeout(() => {
-          if (!mainVideoRef.current!.paused) {
-            mainVideoRef.current!.pause();
-          }
-          pauseTimeoutRef.current = null;
-        }, 300);
-      }
-    }
-  }
+  //   if (isLooking) {
+  //     if (pauseTimeoutRef.current) {
+  //       clearTimeout(pauseTimeoutRef.current);
+  //       pauseTimeoutRef.current = null;
+  //     }
+  //     if (mainVideoRef.current.paused) {
+  //       mainVideoRef.current.play().catch(() => {});
+  //     }
+  //   } else {
+  //     if (!pauseTimeoutRef.current) {
+  //       pauseTimeoutRef.current = window.setTimeout(() => {
+  //         if (!mainVideoRef.current!.paused) {
+  //           mainVideoRef.current!.pause();
+  //         }
+  //         pauseTimeoutRef.current = null;
+  //       }, 300);
+  //     }
+  //   }
+  // }
 
   async function initialize() {
     try {
@@ -127,7 +127,7 @@ export const WebcamTracking: React.FC<WebcamTrackingProps> = () => {
 
       if (results.faceLandmarks && results.faceLandmarks.length > 0) {
         const landmarks = results.faceLandmarks[0];
-        setLandmarks([landmarks]);
+        // setLandmarks([landmarks]);
         //   const lookingStraight = isLookingStraight(landmarks);
 
         // Update video playback based on eye tracking
@@ -136,7 +136,7 @@ export const WebcamTracking: React.FC<WebcamTrackingProps> = () => {
         //   });
         drawEyeHighlights(ctx, landmarks, canvas.width, canvas.height);
       } else {
-        setLandmarks([]);
+        // setLandmarks([]);
         // No face detected: pause video immediately
         //   updateVideoPlayback(false, {
         //     current: document.querySelector("video") as HTMLVideoElement,

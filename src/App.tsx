@@ -2,14 +2,14 @@ import { useRef, useState } from "react";
 import WebcamComponent, { WebcamHandlers } from "./Webcam";
 import { Button } from "./components/ui/button";
 import { Tracking } from "./Tracking";
-import { NormalizedLandmark } from "@mediapipe/tasks-vision";
+// import { NormalizedLandmark } from "@mediapipe/tasks-vision";
 
 const App = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const webcamRef = useRef<WebcamHandlers>(null);
   const [isStreaming, setIsStreaming] = useState(false);
   const [isTracking, setIsTracking] = useState(false);
-  const [landmarks, setLandmarks] = useState<NormalizedLandmark[]>([]);
+  // const [landmarks, setLandmarks] = useState<NormalizedLandmark[]>([]);
 
   const handleStart = async () => {
     if (webcamRef.current) {
