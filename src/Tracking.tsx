@@ -30,15 +30,16 @@ export const Tracking: React.FC<TrackingProps> = ({
         cancelAnimationFrame(animationFrameId.current);
       }
       if (faceLandmarkerRef.current) {
+        faceLandmarkerRef.current.close();
+        faceLandmarkerRef.current = null;
         document.querySelectorAll("script").forEach((script) => {
           if (script.src.includes("vision_wasm_internal.js")) {
             script.remove();
           }
         });
-        faceLandmarkerRef.current.close();
-        faceLandmarkerRef.current = null;
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function drawEyeHighlights(
@@ -57,13 +58,14 @@ export const Tracking: React.FC<TrackingProps> = ({
       ctx.beginPath();
       ctx.arc(point.x * width, point.y * height, 2, 0, 2 * Math.PI);
       ctx.stroke();
+      ctx.font = "24px sans-serif";
     });
   }
 
   async function initialize() {
     try {
       const vision = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm"
       );
 
       faceLandmarkerRef.current = await FaceLandmarker.createFromOptions(
